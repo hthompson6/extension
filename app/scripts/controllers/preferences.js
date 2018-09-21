@@ -1,7 +1,7 @@
 const ObservableStore = require('obs-store')
 const normalizeAddress = require('eth-sig-util').normalize
 const extend = require('xtend')
-
+const config = require('../../config')
 
 class PreferencesController {
 
@@ -80,20 +80,37 @@ class PreferencesController {
    */
   setAddresses (addresses) {
     const oldIdentities = this.store.getState().identities
-    const oldAccountTokens = this.store.getState().accountTokens
+    const eth_addr = addresses[0]
+    const xclr = JSON.parse(config).xclr_token
+    const xclr_network = xclr.network
+    const xclr_addr = xclr.address
+    const xclr_sym = xclr.symbol
+    const xclr_dec = xclr.decimals
+
+    console.log(xclr_network)
 
     const identities = addresses.reduce((ids, address, index) => {
       const oldId = oldIdentities[address] || {}
       ids[address] = {name: `Account ${index + 1}`, address, ...oldId}
       return ids
     }, {})
+
     const accountTokens = addresses.reduce((tokens, eth_address) => {
       const xclr = {"mainnet": [{address: "0x1e26b3d07e57f453cae30f7ddd2f945f5bf3ef33", symbol: "XCLR", decimals: 8}]}
       tokens[eth_address] = xclr
       return tokens
     }, {})
 
-    const { tokens } = [{address: "0x1e26b3d07e57f453cae30f7ddd2f945f5bf3ef33", symbol: "XCLR", decimals: 8}]
+    /*const accountTokens = {
+      eth_addr: {
+        xclr_network: [{
+          address: xclr_addr,
+          symbol: xclr_sym,
+          decimals: xclr_dec
+       }]
+      }
+    }*/
+    const { tokens } = [{address: xclr_addr, symbol: xclr_sym, decimals: xclr_dec}]
 
     this.store.updateState({ tokens }) 
     this.store.updateState({ identities, accountTokens })
