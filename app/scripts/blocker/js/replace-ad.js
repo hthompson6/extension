@@ -1,25 +1,21 @@
-//var requirejs = require('requirejs');
-//const signmsg = requirejs('../../lib/sign-arbitrary');
-
-//requirejs.config({
-//  nodeRequire: require
-//});
-
-  
-
-const msgParams = [
-  {
+var msgParams = {
     type: 'string',
     name: 'Message',
     value: 'Hello there, General Kenobi'
   }
-]
+
+
 var cca = document.getElementsByClassName('cca');
 var w_h_ids = [];
 for (var i = 0; i < cca.length; i++) {
   if (cca[i].getAttribute('data-init') !== "true") {
     cca[i].setAttribute('data-init', "true");
     w_h_ids.push(cca[i].className.replace(/cca /g, '') + '-' + cca[i].id);
+    console.log("SHOULD HAVE CALLED IT");
+    chrome.runtime.sendMessage(msgParams, function(response){
+      console.log('MESSAGE RECIEVED, AND REPLIED');
+      console.log(response);
+    });
   }
 }
 var cc = document.createElement('script');
