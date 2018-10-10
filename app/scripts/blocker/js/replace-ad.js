@@ -1,8 +1,9 @@
 var msgParams = {
     type: 'string',
     name: 'Message',
-    value: 'Hello there, General Kenobi'
-  }
+    value: 'Hello there, General Kenobi',
+    impression_id: 'imp-124445545411'
+}
 
 
 var cca = document.getElementsByClassName('cca');
@@ -14,7 +15,7 @@ for (var i = 0; i < cca.length; i++) {
     console.log("SHOULD HAVE CALLED IT");
     chrome.runtime.sendMessage(msgParams, function(response){
       console.log('MESSAGE RECIEVED, AND REPLIED');
-      console.log(response);
+      console.log(response.signed);
     });
   }
 }
