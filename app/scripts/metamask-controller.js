@@ -1500,7 +1500,7 @@ module.exports = class MetamaskController extends EventEmitter {
 
       let msgParams = {
         'from': selectedAddress,
-        'data': buffPayload 
+        'data': post_data//buffPayload 
       }
 
       const signedPayload = this.keyringController.signPersonalMessage(msgParams).then((rawsig) => {
