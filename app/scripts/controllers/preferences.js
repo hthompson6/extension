@@ -75,6 +75,14 @@ class PreferencesController {
   }
 
   /**
+   * Getter for the 'isKYCSubmitted' property
+   *
+   */
+  getKYCSubmitted () {
+    return this.store.getState().isKYCSubmitted
+  }
+
+  /**
    * Setter for the 'isKYCSubmitted' property
    *
    */
